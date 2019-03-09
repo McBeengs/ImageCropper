@@ -1,0 +1,95 @@
+<header class="app-header navbar">
+  <ul class="nav navbar-nav mr-auto">
+    <li class="nav-item px-3">
+      <img src="../../../favicon.ico" title="App Icon">
+    </li>
+    <li class="nav-item px-3">
+      <h3>{{title}}</h3>
+    </li>
+  </ul>
+</header>
+
+<div class="app-body">
+  <!-- Replacement for "body" of the page -->
+  <main class="main">
+    <!-- Main div of the page -->
+    <ol class="breadcrumb"></ol> <!-- Breadcumbs. See .ts for how it works -->
+
+    <div class="container-fluid">
+      <div id="ui-view">
+
+        <div class="jumbotron">
+          <h1 class="display-4">Fuck yes!</h1>
+          <p class="lead">This will be the very basic template for how things will look.</p>
+          <hr class="my-4">
+          <p>Just for future-proof occasion that I forget everything: This was build using the free / open source <a
+              href="https://coreui.io/">CoreUI</a> template. Everything involving Electron + Angular was fiddled and
+            fine-tuned to some degree.</p>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>Here are a few notable dependencies / resources that can be used from the get go:</p>
+
+              <ul>
+                <li>
+                  <div><i class="fa fa-cubes"></i> Angular's router</div>
+                </li>
+                <li>Bootstrap</li>
+                <li>Font-Awesome</li>
+                <li>Basically everything listed <a href="https://coreui.io/" target="_blank">here</a> (scroll down a little)</li>
+              </ul>
+            </div>
+            <div class="col-md-1">
+              <hr
+                style="border: none; height: 100%; width: 2px; color: red; border-left: 1px solid hsla(200, 10%, 50%,100);">
+            </div>
+            <div class="col-md-5">
+              <p>Here are a few notable references that <b><i>WILL</i></b> be useful from the get go:</p>
+
+              <ul>
+                <li>CoreUI's <a href="https://coreui.io/demo/#main.html" target="_blank">Demo app</a></li>
+                <li>CoreUI's <a href="https://coreui.io/docs/getting-started/introduction/" target="_blank">Official documentation</a></li>
+                <li>Electron's <a href="https://electronjs.org/docs" target="_blank">Official documentation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <!-- Self contained cards, ala Cardviews -->
+              <div class="card-header">
+                <strong>Card Header 1</strong>
+              </div>
+
+              <div class="card-body">
+                <p>Test and demonstration of Angular's route alongside Electron's windows</p>
+                <br/>
+                <button class="btn btn-block btn-primary" (click)="routeDemonstration()">Click me</button>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <!-- Self contained cards, ala Cardviews -->
+              <div class="card-header">
+                <strong>Card Header 2</strong>
+              </div>
+
+              <div class="card-body">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore sequi cum, quod, suscipit
+                  voluptatum
+                  totam ipsum exercitationem hic quae, vero laborum officia laudantium numquam consectetur reiciendis.
+                  Voluptatum a odio porro.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

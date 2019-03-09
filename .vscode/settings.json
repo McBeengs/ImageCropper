@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/**.spec.json": true,
+        "**/**.spec.ts": true,
+        "**/dist": true,
+        "**/e2e": true
+    }
+}
