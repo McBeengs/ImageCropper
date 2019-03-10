@@ -4,6 +4,8 @@ const url = require('url')
 
 //live-reload
 const electron = require('electron');
+
+
 // Enable live reload for Electron too
 require('electron-reload')(__dirname, {
   // Note that the path to electron may vary according to the main file
@@ -28,6 +30,10 @@ function createWindow () {
 
   win.on('closed', () => {
     win = null
+  })
+
+  win.once('ready-to-show', () => {
+    win.show()
   })
 }
 

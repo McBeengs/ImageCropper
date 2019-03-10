@@ -1,4 +1,3 @@
-import { ActionComponent } from './screens/action/action.component';
 import { HomeComponent } from './screens/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,12 +8,13 @@ import { NgxElectronModule } from 'ngx-electron';
 import { AppComponent } from './app.component';
 
 import { AppHeaderModule } from '@coreui/angular';
+import { SelectImageComponent } from './screens/select-image/select-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ActionComponent
+    SelectImageComponent
   ],
   imports: [
     AppHeaderModule,
