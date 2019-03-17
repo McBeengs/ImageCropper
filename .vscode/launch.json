@@ -5,11 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome (Angular)",
-            "type": "chrome",
+            "name": "Debug Main",
+            "type": "node",
             "request": "launch",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
+            "cwd": "${workspaceRoot}/dist",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "runtimeArgs": [
+                "--remote-debugging-port=9222"
+            ],
+            "program": "${workspaceRoot}/dist/main.bundle.js",
+            "protocol": "inspector",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*.js"
+            ]
         }
     ]
 }

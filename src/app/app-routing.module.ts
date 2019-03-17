@@ -6,9 +6,9 @@ import { SelectImageComponent } from './screens/select-image/select-image.compon
 // IMPORTANT: Electron + Angular doesn't suport lazy-loading of Components. Make sure to add them to "app.module.ts"!
 const routes: Routes = [
   {path: "home", component: HomeComponent},
-  {path: "select-image", component: SelectImageComponent}, // /:path
+  {path: "select-image/:path", component: SelectImageComponent}, // /:path
 
-  {path: "", redirectTo: "select-image", pathMatch: "full"}
+  {path: "", redirectTo: "home", pathMatch: "full"}
 ];
 
 @NgModule({

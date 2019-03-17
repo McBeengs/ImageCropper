@@ -1,5 +1,5 @@
 <header class="app-header navbar">
-  <ul class="nav navbar-nav mr-auto">
+  <ul class="nav navbar-nav">
     <li class="nav-item px-3">
       <h3>ImageCropper</h3>
     </li>
@@ -11,12 +11,25 @@
   <main class="main">
     <!-- Main div of the page -->
     <ol class="breadcrumb">
-      <li class="breadcrumb"><a routerLink="/home" routerLinkActive="active">Home (Select root folder)</a></li>
-      <li class="breadcrumb">Select Image</li>
+      <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active">Home (Select root folder)</a></li>
+      <li class="breadcrumb-item active">Select Image</li>
     </ol>
 
     <div class="container-fluid">
       <div id="ui-view">
+        <h5>{{path}}</h5>
+        <h6>There are {{filelist.length}} files in this folder:</h6>
+
+        <div class="row">
+          <ng-template dynamicFiles></ng-template>
+          <!-- <div class="col-md-3" *ngFor="let file of files; let i = index">
+            <div id="thumbnail-container-{{file.id}}">
+                <img id="thumb-file-{{file.id}}" [src]="file.path | safeurl" class="file-thumbnail" />
+                <p>{{file.createDate}}</p>
+                <p>{{file.size}}</p>
+            </div>
+          </div> -->
+        </div>
 
       </div>
 

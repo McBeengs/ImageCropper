@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ImageThumbnailComponent } from './components/image-thumbnail.component';
+import {
+  Component, OnInit, AfterViewInit, ViewContainerRef, ViewChild,
+  ComponentRef, ComponentFactoryResolver, Inject
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FileModel } from './models/FileModel';
 
 const remote = require('electron').remote;
 const fs = remote.require('fs');
@@ -9,38 +14,50 @@ const fs = remote.require('fs');
   templateUrl: './select-image.component.html',
   styleUrls: ['./select-image.component.css']
 })
-export class SelectImageComponent implements OnInit {
+export class SelectImageComponent implements OnInit, AfterViewInit {
 
-  path: string;
+  path: string; // Absolute root folder path
+  filelist: string[]; // List of all absolute paths for the files founded on the path variable above
+  files: Array<FileModel>; // Array of fully populated objects representing the files above
+  dynamicalyAddedFiles = [];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-    // this.path = this.route.snapshot.paramMap.get('path');
-    this.path = "D:\\Windows\\Desktop\\ps3\\";
+  @ViewChild('dynamicFiles', { read: ViewContainerRef }) dynamicFiles: ViewContainerRef;
 
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {
+    this.path = this.route.snapshot.paramMap.get('path');
+    // this.path = "\\\\THEONETOYETBENA\\Repository\\FurAffinity\\Aikega\\";
   }
 
   ngOnInit() {
-    const filelist: Array<string> = new Array<string>();
-    this.parseDirectory(filelist);
+    // Parse the directory
+    this.filelist = fs.readdirSync(this.path);
+    this.files = new Array<FileModel>();
+  }
 
-    filelist.forEach(file => {
-      console.log(file);
+  ngAfterViewInit() {
+    this.filelist.forEach((file: string) => {
+      if (file.endsWith(".png") || file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".bmp")) {
+        const model: FileModel = new FileModel();
+        model.id = this.files.length + 1;
+        model.name = file;
+        model.path = this.path + "\\" + file;
+
+        fs.stat(model.path, (err: any, stats: any) => {
+          model.createDate = stats.birthtime;
+          model.size = stats.size;
+
+          this.files.push(model);
+          this.insertNewFileDynamically(model);
+        });
+      }
     });
   }
 
-  parseDirectory(filelist: Array<string>): Array<string> {
-    fs.readdir(this.path, (error: any, files: string[]) => {
-      filelist = filelist || [];
-      files.forEach((file: any) => {
-        if (fs.statSync(this.path + file).isDirectory()) {
-          filelist = this.parseDirectory(filelist);
-        }
-
-        filelist.push(this.path + file);
-        console.log(this.path + file);
-      });
-    });
-
-    return filelist;
+  insertNewFileDynamically(file: FileModel) {
+    
   }
 }

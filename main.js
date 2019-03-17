@@ -1,29 +1,33 @@
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 
 //live-reload
 const electron = require('electron');
 
-
-// Enable live reload for Electron too
-require('electron-reload')(__dirname, {
-  // Note that the path to electron may vary according to the main file
-  electron: require(`${__dirname}/node_modules/electron`),
-  hardResetMethod: 'exit'
-});
-
 let win
+let serve;
+const args = process.argv.slice(1);
 
-function createWindow () {
-  win = new BrowserWindow({width: 800, height: 600})
+function createWindow() {
+  win = new BrowserWindow({ width: 800, height: 600, webPreferences: { webSecurity: false } })
 
-  // load the dist folder from Angular
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'dist/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  serve = args.some(val => val === '--serve');
+
+  if (serve) {
+    require('electron-reload')(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
+    win.loadURL('http://localhost:4200');
+  } else {
+    // load the dist folder from Angular
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+  }
+
 
   // Open the DevTools optionally:
   // win.webContents.openDevTools()

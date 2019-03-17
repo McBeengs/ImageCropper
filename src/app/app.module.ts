@@ -1,3 +1,5 @@
+import { ImageThumbnailComponent } from './screens/select-image/components/image-thumbnail.component';
+import { SafeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { HomeComponent } from './screens/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -12,9 +14,14 @@ import { SelectImageComponent } from './screens/select-image/select-image.compon
 
 @NgModule({
   declarations: [
+    SafeUrlPipe,
     AppComponent,
     HomeComponent,
-    SelectImageComponent
+    SelectImageComponent,
+    ImageThumbnailComponent
+  ],
+  entryComponents: [
+    ImageThumbnailComponent
   ],
   imports: [
     AppHeaderModule,
@@ -22,7 +29,6 @@ import { SelectImageComponent } from './screens/select-image/select-image.compon
     AppRoutingModule,
     NgxElectronModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
