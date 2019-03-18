@@ -1,0 +1,67 @@
+<header class="app-header navbar">
+  <ul class="nav navbar-nav">
+    <li class="nav-item px-3">
+      <h3>ImageCropper</h3>
+    </li>
+  </ul>
+</header>
+
+<div class="app-body">
+  <!-- Replacement for "body" of the page -->
+  <main class="main">
+    <!-- Main div of the page -->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active">Home (Select root folder)</a></li>
+      <li class="breadcrumb-item"><a routerLink="/select-image" routerLinkActive="active">Select Image</a></li>
+      <li class="breadcrumb-item active">Crop Image</li>
+    </ol>
+
+    <div class="container-fluid">
+      <div id="ui-view">
+        <div class="row">
+          <div class="col-xs-2 col-sm-7 col-md-8">
+            <div class="row">
+              <div class="col-md-1 remove-border">
+                <p class="remove-border num top-left">{{imageHeight}}px</p>
+                <p class="remove-border num bottom-left">0px</p>
+              </div>
+              <div class="col-md-10 remove-border">
+                <div id="wrapper" class="image-canvas" #targetDiv>
+                  <!-- <img src="../../../assets/spinner.gif" [lazyLoad]="fileModel.path" /> -->
+                  <ngx-croppie class="image-canvas-img" #ngxCroppie
+                    [outputFormatOptions]="{ type: 'blob', size: 'viewport' }" [croppieOptions]="croppieOptions"
+                    [imageUrl]="fileModel.path" (result)="newImageResultFromCroppie($event)"></ngx-croppie>
+                </div>
+              </div>
+              <div class="col-md-1 remove-border">
+                <p class="remove-border num bottom-right">{{imageWidth}}px</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-10 col-sm-5 col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <strong>Cropping Details</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Width selected: </h6>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Height selected: </h6>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <hr class="my-4">
+                <h6>Lock selection to equilateral squares </h6>
+                <input type="checkbox" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -20,19 +20,31 @@
         <h5>{{path}}</h5>
         <h6>There are {{filelist.length}} files in this folder:</h6>
 
-        <div class="row">
-          <ng-template dynamicFiles></ng-template>
-          <!-- <div class="col-md-3" *ngFor="let file of files; let i = index">
-            <div id="thumbnail-container-{{file.id}}">
-                <img id="thumb-file-{{file.id}}" [src]="file.path | safeurl" class="file-thumbnail" />
-                <p>{{file.createDate}}</p>
-                <p>{{file.size}}</p>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5">
+                <input class="form-control" type="text" placeholder="Search where name contains..."
+                  [(ngModel)]="txtName" (input)="displayFilesByFilters()">
+              </div>
+              <div class="col-md-7">
+                <div class="form-group form-inline">
+                  <label for="sortOptions" style="margin: 5px 10px 0px 10px;"><h6>Order by:</h6></label>
+                  <select id="sortOptions" class="form-control" [(ngModel)]="selectedOption" (change)="displayFilesByFilters()">
+                    <option *ngFor="let o of options">
+                      {{o.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
+        <div class="row">
+          <template #dynamicFiles></template>
+        </div>
       </div>
-
     </div>
   </main>
 </div>

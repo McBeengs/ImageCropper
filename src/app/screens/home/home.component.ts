@@ -1,5 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from './../../shared/services/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 
 @Component({
@@ -12,7 +13,12 @@ export class HomeComponent {
   @ViewChild('pathName') pathName: ElementRef;
   @ViewChild('nextButton') nextButton: ElementRef;
 
-  constructor(private router: Router, private route: ActivatedRoute, private electronService: ElectronService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private electronService: ElectronService,
+    private localStorage: LocalStorageService
+  ) { }
 
   selectDirectory() {
     if (this.electronService.isElectronApp) {
@@ -26,6 +32,7 @@ export class HomeComponent {
   }
 
   nextButtonClick() {
-    this.router.navigate(['/select-image', this.pathName.nativeElement.value]);
+    this.localStorage.setPath(this.pathName.nativeElement.value);
+    this.router.navigate(['/select-image']);
   }
 }

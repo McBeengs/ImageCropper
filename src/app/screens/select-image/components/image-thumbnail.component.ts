@@ -1,23 +1,77 @@
-import { FileModel } from './../models/FileModel';
-import { Component, OnInit, Input } from '@angular/core';
-
-// <div class="col-md-3">
-//         <div id="thumbnail-container-{{file.id}}">
-//             <img id="thumb-file-{{file.id}}" [src]="file.path | safeurl" class="file-thumbnail" />
-//             <p>{{file.createDate}}</p>
-//             <p>{{file.size}}</p>
-//         </div>
-//     </div>
+import { LocalStorageService } from './../../../shared/services/local-storage.service';
+import {
+  Component,
+  HostBinding,
+  Input,
+  OnInit
+  } from '@angular/core';
+import { FileModel } from 'src/app/shared/models/FileModel';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-image-thumbnail',
-    template: "<h2>{{message}}</h2>",
-    styles: [""]
+  selector: "app-image-thumbnail",
+  template: `
+    <div class="card" (click)="onClick()">
+      <div class="card-body">
+        <div id="thumbnail-container-{{model.id}}">
+          <div class="thumb-wrapper">
+            <img id="thumb-file-{{model.id}}" src="../../../../assets/spinner.gif" [lazyLoad]="model.path" class="file-thumbnail " />
+          </div>
+          <div class="thumb-info">
+            <div class="thumb-info-value"><h6 class="d-inline">Name: </h6><p class="d-inline">{{model.name}}</p></div>
+            <div class="thumb-info-value"><h6 class="d-inline">Date: </h6>
+              <p class="d-inline">
+                {{model.createDate | date: 'dd/MM/yyyy HH:mm:ss'}}
+              </p>
+            </div>
+            <div class="thumb-info-value"><h6 class="d-inline">Size: </h6><p class="d-inline">{{model.sizeText}}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    `,
+  styles: [
+    `
+      .thumb-wrapper {
+        width: 100%;
+      }
+
+      .file-thumbnail {
+          max-width: 80%;
+          max-height: 80%;
+          display: inherit;
+          margin: 0 auto;
+      }
+
+      .thumb-info {
+        margin-top: 10px;
+      }
+
+      .thumb-info-value {
+        margin-bottom: 7px;
+      }
+
+      .card:hover {
+        background: #3c4956;
+        cursor: pointer;
+      }
+      `
+  ]
 })
 export class ImageThumbnailComponent {
 
-    @Input() message: string;
+  @Input() model: FileModel;
+  // tslint:disable-next-line: no-input-rename
+  @HostBinding('class') @Input('class') bootstrapCss = "col-sm-4 col-md-4 col-lg-3";
 
-    constructor() {
+  constructor(private router: Router, private localStorage: LocalStorageService) {
+    if (this.model == null) {
+      this.model = new FileModel();
     }
+  }
+
+  onClick() {
+    this.localStorage.setFileModel(this.model);
+    this.router.navigate(['/crop-image']);
+  }
 }
