@@ -1,3 +1,4 @@
+import { AngularDraggableModule } from 'angular2-draggable';
 import { AppComponent } from './app.component';
 import { AppHeaderModule } from '@coreui/angular';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,9 +10,8 @@ import { ImageThumbnailComponent } from './screens/select-image/components/image
 import { intersectionObserverPreset, LazyLoadImageModule } from 'ng-lazyload-image';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { NgModule } from '@angular/core';
-import { NgxCroppieModule } from 'ngx-croppie';
-import { SelectImageComponent } from './screens/select-image/select-image.component';
 import { NgxElectronModule } from 'ngx-electron';
+import { SelectImageComponent } from './screens/select-image/select-image.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { NgxElectronModule } from 'ngx-electron';
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
-    NgxCroppieModule
+    AngularDraggableModule
   ],
   providers: [LocalStorageService],
   bootstrap: [AppComponent]
