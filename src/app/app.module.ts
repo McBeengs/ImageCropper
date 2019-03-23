@@ -1,4 +1,4 @@
-import { AngularDraggableModule } from 'angular2-draggable';
+import { AngularCropperjsModule } from 'angular-cropperjs';
 import { AppComponent } from './app.component';
 import { AppHeaderModule } from '@coreui/angular';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,10 +11,12 @@ import { intersectionObserverPreset, LazyLoadImageModule } from 'ng-lazyload-ima
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { NgModule } from '@angular/core';
 import { NgxElectronModule } from 'ngx-electron';
+import { SafeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { SelectImageComponent } from './screens/select-image/select-image.component';
 
 @NgModule({
   declarations: [
+    SafeUrlPipe,
     AppComponent,
     HomeComponent,
     SelectImageComponent,
@@ -33,7 +35,7 @@ import { SelectImageComponent } from './screens/select-image/select-image.compon
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
-    AngularDraggableModule
+    AngularCropperjsModule
   ],
   providers: [LocalStorageService],
   bootstrap: [AppComponent]

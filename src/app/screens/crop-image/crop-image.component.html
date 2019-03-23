@@ -26,11 +26,9 @@
                 <p class="remove-border num bottom-left">0px</p>
               </div>
               <div class="col-md-10 remove-border" style="position:relative;">
-                <div id="wrapper" class="image-canvas" #targetDiv style="overflow:hidden;">
-                  <img src="../../../assets/spinner.gif" [lazyLoad]="fileModel.path" #imageCanvas />
-                  <div class="draggable" ngDraggable [bounds]="imageCanvas" [inBounds]="true" (movingOffset)="onDragMoving($event)">
-                    <div style="z-index: 3"></div>
-                  </div>
+                <div class="image-canvas" #targetDiv style="overflow:hidden;">
+                  <!-- <img [lazyLoad]="fileModel.path" #imageCanvas /> -->
+                  <angular-cropper class="image-canvas-img" [cropperOptions]="config" [imageUrl]="fileModel.path | safeurl" #cropper></angular-cropper>
                 </div>
               </div>
               <div class="col-md-1 remove-border">
