@@ -10,7 +10,13 @@ let serve;
 const args = process.argv.slice(1);
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600, webPreferences: { webSecurity: false } })
+  win = new BrowserWindow({
+    width: 1120,
+    height: 720,
+    webPreferences: { webSecurity: false },
+    minHeight: 720,
+    minWidth: 1120
+  })
 
   serve = args.some(val => val === '--serve');
 

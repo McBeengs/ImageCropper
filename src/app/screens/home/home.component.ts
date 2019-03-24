@@ -1,7 +1,7 @@
-import { LocalStorageService } from './../../shared/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { LocalStorageService } from './../../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-home',

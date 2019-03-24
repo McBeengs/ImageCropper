@@ -19,7 +19,7 @@
     <div class="container-fluid">
       <div id="ui-view">
         <div class="row">
-          <div class="col-xs-2 col-sm-7 col-md-8">
+          <div class="col-xs-2 col-sm-6 col-md-8">
             <div class="row">
               <div class="col-md-1 remove-border">
                 <p class="remove-border num top-left">{{imageHeight}}px</p>
@@ -28,7 +28,7 @@
               <div class="col-md-10 remove-border" style="position:relative;">
                 <div class="image-canvas" #targetDiv style="overflow:hidden;">
                   <!-- <img [lazyLoad]="fileModel.path" #imageCanvas /> -->
-                  <angular-cropper class="image-canvas-img" [cropperOptions]="config" [imageUrl]="fileModel.path | safeurl" #cropper></angular-cropper>
+                  <img [src]="fileModel.path | safeurl">
                 </div>
               </div>
               <div class="col-md-1 remove-border">
@@ -36,30 +36,86 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-10 col-sm-5 col-md-4">
+          <div class="col-xs-10 col-sm-6 col-md-4">
             <div class="card">
               <div class="card-header">
-                <strong>Cropping Details</strong>
+                <strong>Cropping Options</strong>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
                     <h6>Width selected: </h6>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" [(ngModel)]="cropBoxW" (input)="changeCropBoxSize()"
+                      #cropBoxWidth>
                   </div>
                   <div class="col-md-6">
                     <h6>Height selected: </h6>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" [(ngModel)]="cropBoxH" (input)="changeCropBoxSize()"
+                      #cropBoxHeight>
                   </div>
                 </div>
-                <hr class="my-4">
-                <h6>Lock selection to equilateral squares </h6>
-                <input type="checkbox" class="form-control">
-                <br />
-                <h6>Current position of cut window</h6>
+                <hr class="my-2">
+                <div class="col-md-12">
+                  <div class="form-inline">
+                    <input type="checkbox" class="form-control" (input)="eqSquaresChecked()" id="eqSquares"
+                      #eqSquaresCheckbox checked>
+                    <label for="eqSquares">
+                      <h6>Lock selection to equilateral squares </h6>
+                    </label>
+                  </div>
+                </div>
+
+                <hr class="my-2">
+
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="cell-padding">
+                        <h6>Crop preview</h6>
+                        <div class="preview"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 vertical-separator">
+                      <div class="cell-padding">
+                        <h6>Crop save options</h6>
+
+                        <fieldset #radioFieldset>
+                          <div class="form-inline">
+                            <input type="radio" name="res" class="form-control" id="32" value="32">
+                            <label for="32">32 x 32px</label>
+                          </div>
+                          <div class="form-inline">
+                            <input type="radio" name="res" class="form-control" id="64" value="64">
+                            <label for="64">64 x 64px</label>
+                          </div>
+                          <div class="form-inline">
+                            <input type="radio" name="res" class="form-control" id="128" value="128" checked>
+                            <label for="128">128 x 128px</label>
+                          </div>
+                          <div class="form-inline">
+                            <input type="radio" name="res" class="form-control" id="256" value="256">
+                            <label for="256">256 x 256px</label>
+                          </div>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-3">
+
                 <div class="row">
-                  <div class="col-md-6"><h6>{{windowX}}</h6></div>
-                  <div class="col-md-6"><h6>{{windowY}}</h6></div>
+                  <div class="col-md-12">
+                    <label for="output">Output path</label>
+                    <input type="text" class="form-control" id="output" (click)="selectDirectory()" readonly
+                      #outputPath>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px; display: block">
+                  <button class="btn btn-primary" style="float: right; margin-right: 18px;"
+                    (click)="cropClick()">Crop</button>
                 </div>
               </div>
             </div>

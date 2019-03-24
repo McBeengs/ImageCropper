@@ -1,4 +1,3 @@
-import { AngularCropperjsModule } from 'angular-cropperjs';
 import { AppComponent } from './app.component';
 import { AppHeaderModule } from '@coreui/angular';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,8 +33,7 @@ import { SelectImageComponent } from './screens/select-image/select-image.compon
     NgxElectronModule,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
-    }),
-    AngularCropperjsModule
+    })
   ],
   providers: [LocalStorageService],
   bootstrap: [AppComponent]
