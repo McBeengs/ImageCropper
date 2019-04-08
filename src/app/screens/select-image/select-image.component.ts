@@ -54,7 +54,7 @@ export class SelectImageComponent implements OnInit, AfterViewInit {
     this.filelist = fs.readdirSync(this.path);
     this.files = new Array<FileModel>();
 
-    this.selectedOption = "Name (Alphabetically)";
+    this.selectedOption = "Date (Newest to Oldest)";
   }
 
   ngAfterViewInit() {

@@ -20,7 +20,8 @@
     "electron:mac": "npm run build:prod && electron-builder build --mac",
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
-    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "dist": "electron-builder"
   },
   "private": true,
   "dependencies": {
@@ -82,5 +83,12 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
+  },
+  "build": {
+    "appId": "image.cropper",
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    }
   }
 }

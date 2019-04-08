@@ -152,7 +152,7 @@ export class CropImageComponent implements OnInit, AfterViewInit {
         fs.writeFileSync(this.outputPath.nativeElement.value, buf);
 
         alert("Crop successfully created!");
-        // this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       });
     }
   }
