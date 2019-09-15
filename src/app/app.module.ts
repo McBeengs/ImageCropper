@@ -5,20 +5,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CropImageComponent } from './screens/crop-image/crop-image.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './screens/home/home.component';
-import { ImageThumbnailComponent } from './screens/select-image/components/image-thumbnail.component';
+import { ImageThumbnailComponent } from './screens/select-media/components/image-thumbnail.component';
 import { intersectionObserverPreset, LazyLoadImageModule } from 'ng-lazyload-image';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { NgModule } from '@angular/core';
 import { NgxElectronModule } from 'ngx-electron';
 import { SafeUrlPipe } from './shared/pipes/safe-url.pipe';
-import { SelectImageComponent } from './screens/select-image/select-image.component';
+import { SelectMediaComponent } from './screens/select-media/select-media.component';
 
 @NgModule({
   declarations: [
     SafeUrlPipe,
     AppComponent,
     HomeComponent,
-    SelectImageComponent,
+    SelectMediaComponent,
     CropImageComponent,
     ImageThumbnailComponent
   ],

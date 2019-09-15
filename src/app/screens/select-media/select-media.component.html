@@ -1,0 +1,78 @@
+<header class="app-header navbar">
+  <ul class="nav navbar-nav">
+    <li class="nav-item px-3">
+      <h3>ImageCropper</h3>
+    </li>
+  </ul>
+</header>
+
+<div class="app-body">
+  <!-- Replacement for "body" of the page -->
+  <main class="main">
+    <!-- Main div of the page -->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active"><a routerLink="/select-media">Select Image</a></li>
+    </ol>
+
+    <div class="container-fluid">
+      <div id="ui-view">
+        <div #folderContainer>
+          <div class="card">
+            <div class="card-body">
+              <h6>Select folder to list the files</h6>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary btn-file" (click)="selectDirectory()">Browse&hellip;</button>
+                    </span>
+                    <input type="text" class="form-control" readonly #pathName>
+                  </div>
+                </div>
+                <div class="col-md-2 centralize-container">
+                  <button class="btn btn-primary" disabled #nextButton (click)="listFilesClick()">List Files</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+          <h6>... The files will be showed here</h6>
+        </div>
+
+        <div #mediaContainer style="display: none">
+          <h5>{{path}}</h5>
+          <h6>There are {{fileCount}} files in this folder:</h6>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-5">
+                  <input class="form-control" type="text" placeholder="Search where name contains..."
+                    [(ngModel)]="txtName" (input)="displayFilesByFilters()">
+                </div>
+                <div class="col-md-7">
+                  <div class="form-group form-inline">
+                    <label for="sortOptions" style="margin: 5px 10px 0px 10px;">
+                      <h6>Order by:</h6>
+                    </label>
+                    <select id="sortOptions" class="form-control" [(ngModel)]="selectedOption"
+                      (change)="displayFilesByFilters()">
+                      <option *ngFor="let o of options">
+                        {{o.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <template #dynamicFiles></template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

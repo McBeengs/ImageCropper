@@ -3,7 +3,7 @@ import {
   Component,
   HostBinding,
   Input,
-  OnInit
+  NgZone
   } from '@angular/core';
 import { FileModel } from 'src/app/shared/models/FileModel';
 import { Router } from '@angular/router';
@@ -64,7 +64,7 @@ export class ImageThumbnailComponent {
   // tslint:disable-next-line: no-input-rename
   @HostBinding('class') @Input('class') bootstrapCss = "col-sm-4 col-md-4 col-lg-3";
 
-  constructor(private router: Router, private localStorage: LocalStorageService) {
+  constructor(private ngZone: NgZone, private router: Router, private localStorage: LocalStorageService) {
     if (this.model == null) {
       this.model = new FileModel();
     }
@@ -72,6 +72,6 @@ export class ImageThumbnailComponent {
 
   onClick() {
     this.localStorage.setFileModel(this.model);
-    this.router.navigate(['/crop-image']);
+    this.ngZone.run(() => this.router.navigate(['/crop-image'])).then();
   }
 }

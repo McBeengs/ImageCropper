@@ -1,0 +1,15 @@
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.centralize-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-thumbnail {
+    max-width: 80%;
+    max-height: 80%;
+}

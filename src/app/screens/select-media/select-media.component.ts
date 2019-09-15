@@ -1,28 +1,34 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
-  Inject,
-  OnInit,
   ViewChild,
-  ViewContainerRef
-  } from '@angular/core';
+  ViewContainerRef,
+  ElementRef,
+  Renderer2
+} from '@angular/core';
 import { FileModel } from 'src/app/shared/models/FileModel';
+import { ElectronService } from 'ngx-electron';
 import { ImageThumbnailComponent } from './components/image-thumbnail.component';
-import { LocalStorageService } from './../../shared/services/local-storage.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 const remote = require('electron').remote;
 const fs = remote.require('fs');
 
 @Component({
-  selector: 'app-select-image',
-  templateUrl: './select-image.component.html',
-  styleUrls: ['./select-image.component.css']
+  selector: 'app-select-media',
+  templateUrl: './select-media.component.html',
+  styleUrls: ['./select-media.component.css']
 })
-export class SelectImageComponent implements OnInit, AfterViewInit {
+export class SelectMediaComponent {
 
+  @ViewChild('pathName') pathName: ElementRef;
+  @ViewChild('nextButton') nextButton: ElementRef;
+  @ViewChild('folderContainer') folderContainer: ElementRef;
+  @ViewChild('mediaContainer') mediaContainer: ElementRef;
+
+  fileCount: number;
   path: string; // Absolute root folder path
   filelist: string[]; // List of all absolute paths for the files founded on the path variable above
   files: Array<FileModel>; // Array of fully populated objects representing the files above
@@ -44,39 +50,58 @@ export class SelectImageComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
     private changeDetector: ChangeDetectorRef,
-    private localStorage: LocalStorageService
+    private electronService: ElectronService,
+    private localStorage: LocalStorageService,
+    private renderer: Renderer2
   ) {
     this.path = localStorage.getPath();
   }
 
-  ngOnInit() {
-    // Parse the directory
-    this.filelist = fs.readdirSync(this.path);
-    this.files = new Array<FileModel>();
+  selectDirectory() {
+    if (this.electronService.isElectronApp) {
+      const path = this.electronService.remote.dialog.showOpenDialog(null, {
+        properties: ['openDirectory']
+      })[0];
 
-    this.selectedOption = "Date (Newest to Oldest)";
+      this.pathName.nativeElement.value = path;
+      this.localStorage.setPath(path);
+      this.path = path;
+
+      this.nextButton.nativeElement.disabled = false;
+    }
   }
 
-  ngAfterViewInit() {
-    for (const file of this.filelist) {
-      if (file.endsWith(".png") || file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".bmp")) {
-        const model: FileModel = new FileModel();
-        model.id = this.files.length + 1;
-        model.name = file;
-        model.path = this.path + "\\" + file;
+  async listFilesClick() {
+    // Parse the directory
+    fs.readdir(this.path, (err, files) => {
+      this.filelist = files;
+      this.files = new Array<FileModel>();
+      this.selectedOption = "Date (Newest to Oldest)";
 
-        const test = fs.statSync(model.path);
-        model.createDate = test.birthtime;
-        model.size = test.size;
-        model.sizeText = this.formatBytes(test.size, 1);
+      for (const file of this.filelist) {
+        if (file.endsWith(".png") || file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".bmp")) {
+          const model: FileModel = new FileModel();
+          model.id = this.files.length + 1;
+          model.name = file;
+          model.path = this.path + "\\" + file;
 
-        this.files.push(model);
+          const test = fs.statSync(model.path);
+          model.createDate = test.birthtime;
+          model.size = test.size;
+          model.sizeText = this.formatBytes(test.size, 1);
+
+          this.files.push(model);
+        }
       }
-    }
 
-    this.displayFilesByFilters();
+      this.displayFilesByFilters();
 
-    this.changeDetector.detectChanges();
+      this.renderer.setStyle(this.folderContainer.nativeElement, 'display', 'none');
+      this.renderer.setStyle(this.mediaContainer.nativeElement, 'display', 'block');
+      this.changeDetector.detectChanges();
+
+    });
+
   }
 
   insertNewFileDynamically(file: FileModel) {
