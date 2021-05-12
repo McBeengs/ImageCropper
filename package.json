@@ -40,7 +40,7 @@
     "@coreui/icons": "0.3.0",
     "@types/cropperjs": "^1.1.5",
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "core-js": "^2.6.5",
     "cropperjs": "^1.5.1",
     "electron-reload": "^1.4.0",
